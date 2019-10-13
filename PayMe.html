@@ -1,0 +1,114 @@
+---
+redirect_from: "/pay/"
+---
+<html>
+	<head>
+		<title>Payments to Rithikhas Studio</title>
+		<meta name="title" property="og:title" content="Make payments to Rithikhas Studio using your UPI payments app of your choice">
+		<meta name="description" property="og:description" content="Make payment to Rithikhas Studio via UPI">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta property="og:image" itemprop="image" content="./pay-me-bhim-qr.jpeg">
+		<script>
+			function load_payment() {
+				console.log("Redirecting to UPI");
+				var milliseconds = (new Date).getTime();
+				var tx_id = 'bhim' + milliseconds;
+				window.location = "upi://pay?pa=ramesh1112kumar@okaxis" 
+				+ "&pn=Ramesh Kumar&tn=RithikasWebPayment&tr=" + tx_id; 
+			}
+
+			function toast(msg) {
+				var x = document.getElementById("snackbar")
+				x.innerHTML = msg;
+				x.className = "show";
+				setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+			}
+
+			function handle_load() {
+				const upi_addr = document.getElementById("upi-addr");
+
+				upi_addr.onclick = function() {
+					document.execCommand("copy");
+				}
+
+				upi_addr.addEventListener("copy", function(event) {
+					event.preventDefault();
+					if (event.clipboardData) {
+						event.clipboardData.setData("text/plain", upi_addr.textContent);
+						toast("UPI handle copied!");
+					}
+				});
+			}
+		</script>
+		<style>
+			.pay-btn {
+				width: 90%;
+				height: 60px;
+				margin: 11px;
+				font-size: larger;
+				color: green;
+			}
+			img {
+				display: block;
+				max-width: 300px;
+			}
+		</style>
+		<!-- css for snackbar (toast like message) from w3c -->
+		<style>
+			#snackbar {
+				visibility: hidden;
+				min-width: 250px;
+				margin-left: -125px;
+				background-color: #333;
+				color: #fff;
+				text-align: center;
+				border-radius: 2px;
+				padding: 16px;
+				position: fixed;
+				z-index: 1;
+				left: 50%;
+				bottom: 30px;
+				font-size: 17px;
+			}
+
+			#snackbar.show {
+				visibility: visible;
+				-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+				animation: fadein 0.5s, fadeout 0.5s 2.5s;
+			}
+
+			@-webkit-keyframes fadein {
+				from {bottom: 0; opacity: 0;} 
+				to {bottom: 30px; opacity: 1;}
+			}
+
+			@keyframes fadein {
+				from {bottom: 0; opacity: 0;}
+				to {bottom: 30px; opacity: 1;}
+			}
+
+			@-webkit-keyframes fadeout {
+				from {bottom: 30px; opacity: 1;} 
+				to {bottom: 0; opacity: 0;}
+			}
+
+			@keyframes fadeout {
+				from {bottom: 30px; opacity: 1;}
+				to {bottom: 0; opacity: 0;}
+			}
+		</style>
+	</head>
+	<body onload="handle_load()">
+		<center><b>Make sure Name displayed as RAMESH KUMAR M</b></center>
+		<button class="pay-btn" onclick="load_payment();">Click to Pay Rithikhas Studio</button>
+		<p>If the above button does not load any payment app in your device please scan the <b>QR Code</b> below from any UPI enabled app to make payment</p>
+		<center>
+			<img src="pay-me-bhim-qr.jpeg"/>
+			<a href="pay-me-bhim-qr.jpeg" download="Rithikhas_UPI_QR.jpeg">Download this QR code</a>
+		</center>
+		</hr>
+		<p>If nothing works <b><span id="upi-addr">ramesh1112kumar@okaxis</span></b> is VPA/UPI address (Click on address to copy it)</p>
+		<p>Don't have any UPI app? Consider installing <a href="https://g.co/payinvite/Yh6hp">Google Pay</a> and start transactions in a minute. <a href="https://g.co/payinvite/Yh6hp">Click here</a> to download Google Pay app on your mobile</p>
+		<div id="snackbar">some message..</div>
+	</body>
+</html>
